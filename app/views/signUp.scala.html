@@ -13,7 +13,7 @@
 @main(messages("sign.up.title")) {
     <fieldset class="col-md-6 col-md-offset-3">
         <legend>@messages("sign.up.account")</legend>
-        @helper.form(action = controllers.routes.SignUpController.submit()) {
+        @helper.form(action = controllers.routes.SignUpController.submit) {
             @helper.CSRF.formField
             @b4.text(signUpForm("firstName"), Symbol("_hiddenLabel") -> messages("first.name"), Symbol("placeholder") -> messages("first.name"), Symbol("class") -> "form-control input-lg")
             @b4.text(signUpForm("lastName"), Symbol("_hiddenLabel") -> messages("last.name"), Symbol("placeholder") -> messages("last.name"), Symbol("class") -> "form-control input-lg")

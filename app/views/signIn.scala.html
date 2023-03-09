@@ -3,7 +3,7 @@
 @import play.api.mvc.RequestHeader
 @import org.webjars.play.WebJarsUtil
 @import controllers.AssetsFinder
-@import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
+@import io.github.honeycombcheesecake.play.silhouette.impl.providers.SocialProviderRegistry
 @import forms.SignInForm.Data
 
 @this()(implicit webJarsUtil: WebJarsUtil, assets: AssetsFinder)
@@ -14,7 +14,7 @@
 @main(messages("sign.in.title")) {
     <fieldset class="col-md-6 col-md-offset-3">
         <legend>@messages("sign.in.credentials")</legend>
-        @helper.form(action = controllers.routes.SignInController.submit()) {
+        @helper.form(action = controllers.routes.SignInController.submit) {
             @helper.CSRF.formField
             @b4.email(signInForm("email"), Symbol("_hiddenLabel") -> messages("email"), Symbol("placeholder") -> messages("email"), Symbol("class") -> "form-control input-lg")
             @b4.password(signInForm("password"), Symbol("_hiddenLabel") -> messages("password"), Symbol("placeholder") -> messages("password"), Symbol("class") -> "form-control input-lg")
@@ -27,7 +27,7 @@
         }
 
         <div>
-            <p class="not-a-member">@messages("not.a.member") <a href="@controllers.routes.SignUpController.view">@messages("sign.up.now")</a> | <a href="@controllers.routes.ForgotPasswordController.view()" title="@messages("forgot.your.password")">@messages("forgot.your.password")</a></p>
+            <p class="not-a-member">@messages("not.a.member") <a href="@controllers.routes.SignUpController.view">@messages("sign.up.now")</a> | <a href="@controllers.routes.ForgotPasswordController.view" title="@messages("forgot.your.password")">@messages("forgot.your.password")</a></p>
         </div>
 
         @if(socialProviders.providers.nonEmpty) {

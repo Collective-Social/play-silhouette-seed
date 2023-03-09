@@ -1,6 +1,6 @@
 package utils.auth
 
-import com.mohiva.play.silhouette.api.actions.UnsecuredErrorHandler
+import io.github.honeycombcheesecake.play.silhouette.api.actions.UnsecuredErrorHandler
 import play.api.mvc.RequestHeader
 import play.api.mvc.Results._
 import utils.route.Calls

@@ -2,9 +2,9 @@ package controllers
 
 import java.util.UUID
 
-import com.mohiva.play.silhouette.api.exceptions.ProviderException
-import com.mohiva.play.silhouette.impl.exceptions.IdentityNotFoundException
-import com.mohiva.play.silhouette.impl.providers._
+import io.github.honeycombcheesecake.play.silhouette.api.exceptions.ProviderException
+import io.github.honeycombcheesecake.play.silhouette.impl.exceptions.IdentityNotFoundException
+import io.github.honeycombcheesecake.play.silhouette.impl.providers._
 import forms.TotpRecoveryForm
 import javax.inject.Inject
 import play.api.i18n.Messages
@@ -36,7 +36,7 @@ class TotpRecoveryController @Inject() (
    * @return The result to display.
    */
   def submit = UnsecuredAction.async { implicit request =>
-    TotpRecoveryForm.form.bindFromRequest.fold(
+    TotpRecoveryForm.form.bindFromRequest().fold(
       form => Future.successful(BadRequest(totpRecovery(form))),
       data => {
         val totpRecoveryControllerRoute = routes.TotpRecoveryController.view(data.userID, data.sharedKey, data.rememberMe)

@@ -1,6 +1,6 @@
 package forms
 
-import com.mohiva.play.silhouette.api.util.PasswordInfo
+import io.github.honeycombcheesecake.play.silhouette.api.util.PasswordInfo
 import play.api.data.Form
 import play.api.data.Forms._
 

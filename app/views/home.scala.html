@@ -4,8 +4,8 @@
 @import controllers.AssetsFinder
 @import play.api.data._
 @import forms.TotpSetupForm.Data
-@import com.mohiva.play.silhouette.impl.providers.GoogleTotpCredentials
-@import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
+@import io.github.honeycombcheesecake.play.silhouette.impl.providers.GoogleTotpCredentials
+@import io.github.honeycombcheesecake.play.silhouette.impl.providers.GoogleTotpInfo
 
 @this()(implicit webJarsUtil: WebJarsUtil, assets: AssetsFinder)
 @(user: models.User, totpInfoOpt: Option[GoogleTotpInfo], totpDataOpt: Option[(Form[Data], GoogleTotpCredentials)] = None)(implicit request: RequestHeader, messages: Messages)
@@ -64,7 +64,7 @@
                         }</li>
                     }
                     </ul>
-                    @helper.form(action = controllers.routes.TotpController.enableTotpSubmit()) {
+                    @helper.form(action = controllers.routes.TotpController.enableTotpSubmit) {
                         @helper.CSRF.formField
                         @b4.text(totpForm("verificationCode"), Symbol("_hiddenLabel") -> messages("totp.verification.code    "), Symbol("placeholder") -> messages("totp.verification.code"), Symbol("autocomplete") -> "off", Symbol("class") -> "form-control input-lg")
                         @b4.hidden(totpForm("sharedKey"))

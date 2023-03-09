@@ -1,9 +1,9 @@
 package controllers
 
-import com.mohiva.play.silhouette.api.exceptions.ProviderException
-import com.mohiva.play.silhouette.api.util.Credentials
-import com.mohiva.play.silhouette.impl.exceptions.IdentityNotFoundException
-import com.mohiva.play.silhouette.impl.providers._
+import io.github.honeycombcheesecake.play.silhouette.api.exceptions.ProviderException
+import io.github.honeycombcheesecake.play.silhouette.api.util.Credentials
+import io.github.honeycombcheesecake.play.silhouette.impl.exceptions.IdentityNotFoundException
+import io.github.honeycombcheesecake.play.silhouette.impl.providers._
 import forms.{ SignInForm, TotpForm }
 import javax.inject.Inject
 import play.api.i18n.Messages
@@ -37,7 +37,7 @@ class SignInController @Inject() (
    * @return The result to display.
    */
   def submit = UnsecuredAction.async { implicit request: Request[AnyContent] =>
-    SignInForm.form.bindFromRequest.fold(
+    SignInForm.form.bindFromRequest().fold(
       form => Future.successful(BadRequest(signIn(form, socialProviderRegistry))),
       data => {
         val credentials = Credentials(data.email, data.password)

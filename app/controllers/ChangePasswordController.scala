@@ -1,9 +1,9 @@
 package controllers
 
-import com.mohiva.play.silhouette.api.actions.SecuredRequest
-import com.mohiva.play.silhouette.api.exceptions.ProviderException
-import com.mohiva.play.silhouette.api.util.{ Credentials, PasswordInfo }
-import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
+import io.github.honeycombcheesecake.play.silhouette.api.actions.SecuredRequest
+import io.github.honeycombcheesecake.play.silhouette.api.exceptions.ProviderException
+import io.github.honeycombcheesecake.play.silhouette.api.util.{ Credentials, PasswordInfo }
+import io.github.honeycombcheesecake.play.silhouette.impl.providers.CredentialsProvider
 import forms.ChangePasswordForm
 import javax.inject.Inject
 import play.api.i18n.Messages
@@ -37,7 +37,7 @@ class ChangePasswordController @Inject() (
    */
   def submit = SecuredAction(WithProvider[AuthType](CredentialsProvider.ID)).async {
     implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
-      ChangePasswordForm.form.bindFromRequest.fold(
+      ChangePasswordForm.form.bindFromRequest().fold(
         form => Future.successful(BadRequest(changePassword(form, request.identity))),
         password => {
           val (currentPassword, newPassword) = password
@@ -45,11 +45,11 @@ class ChangePasswordController @Inject() (
           credentialsProvider.authenticate(credentials).flatMap { loginInfo =>
             val passwordInfo = passwordHasherRegistry.current.hash(newPassword)
             authInfoRepository.update[PasswordInfo](loginInfo, passwordInfo).map { _ =>
-              Redirect(routes.ChangePasswordController.view()).flashing("success" -> Messages("password.changed"))
+              Redirect(routes.ChangePasswordController.view).flashing("success" -> Messages("password.changed"))
             }
           }.recover {
             case _: ProviderException =>
-              Redirect(routes.ChangePasswordController.view()).flashing("error" -> Messages("current.password.invalid"))
+              Redirect(routes.ChangePasswordController.view).flashing("error" -> Messages("current.password.invalid"))
           }
         }
       )

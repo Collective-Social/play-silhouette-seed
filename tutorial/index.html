@@ -72,8 +72,8 @@
             If a user tries to access a secured enpoint without being authenticated, the default behaviour of Silhouette is to send a simple "not authenticated" message. The same goes if an authenticated user requests a page he is not authorized to access. To customize this behaviour, this seed defines two custom error handlers, <a href="#code/app/utils/auth/CustomSecuredErrorHandler.scala">CustomSecuredErrorHandler</a> and <a href="#code/app/utils/auth/CustomUnsecuredErrorHandler.scala">CustomUnsecuredErrorHandler</a>.
             <br/>
             To enable them, the defauld handlers have first to be disabled. This is done in the <a href="#code/conf/application.conf">application.conf</a> file with the following lines :
-            <pre><code>play.modules.disabled += "com.mohiva.play.silhouette.api.actions.SecuredErrorHandlerModule"
- play.modules.disabled += "com.mohiva.play.silhouette.api.actions.UnsecuredErrorHandlerModule"</code></pre>
+            <pre><code>play.modules.disabled += "io.github.honeycombcheesecake.play.silhouette.api.actions.SecuredErrorHandlerModule"
+ play.modules.disabled += "io.github.honeycombcheesecake.play.silhouette.api.actions.UnsecuredErrorHandlerModule"</code></pre>
              The new handlers can then be bound to the error handler traits in the <a href="#code/app/modules/SilhouetteModule.scala">SilhouetteModule</a> :
             <pre><code>bind[UnsecuredErrorHandler].to[CustomUnsecuredErrorHandler]
  bind[SecuredErrorHandler].to[CustomSecuredErrorHandler]</code></pre>

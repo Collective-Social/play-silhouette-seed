@@ -1,8 +1,8 @@
 package controllers
 
-import com.mohiva.play.silhouette.api.Authenticator.Implicits._
-import com.mohiva.play.silhouette.api._
-import com.mohiva.play.silhouette.api.services.AuthenticatorResult
+import io.github.honeycombcheesecake.play.silhouette.api.Authenticator.Implicits._
+import io.github.honeycombcheesecake.play.silhouette.api._
+import io.github.honeycombcheesecake.play.silhouette.api.services.AuthenticatorResult
 import models.User
 import play.api.mvc._
 import utils.route.Calls

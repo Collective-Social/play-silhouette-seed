@@ -2,8 +2,8 @@ package controllers
 
 import java.util.UUID
 
-import com.mohiva.play.silhouette.api.util.PasswordInfo
-import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
+import io.github.honeycombcheesecake.play.silhouette.api.util.PasswordInfo
+import io.github.honeycombcheesecake.play.silhouette.impl.providers.CredentialsProvider
 import forms.ResetPasswordForm
 import javax.inject.Inject
 import play.api.i18n.Messages
@@ -42,7 +42,7 @@ class ResetPasswordController @Inject() (
   def submit(token: UUID) = UnsecuredAction.async { implicit request: Request[AnyContent] =>
     authTokenService.validate(token).flatMap {
       case Some(authToken) =>
-        ResetPasswordForm.form.bindFromRequest.fold(
+        ResetPasswordForm.form.bindFromRequest().fold(
           form => Future.successful(BadRequest(resetPassword(form, token))),
           password => userService.retrieve(authToken.userID).flatMap {
             case Some(user) if user.loginInfo.providerID == CredentialsProvider.ID =>

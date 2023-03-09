@@ -3,8 +3,8 @@ package controllers
 import java.net.URLDecoder
 import java.util.UUID
 
-import com.mohiva.play.silhouette.api._
-import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
+import io.github.honeycombcheesecake.play.silhouette.api._
+import io.github.honeycombcheesecake.play.silhouette.impl.providers.CredentialsProvider
 import javax.inject.Inject
 import play.api.i18n.Messages
 import play.api.libs.mailer.Email
@@ -45,7 +45,7 @@ class ActivateAccountController @Inject() (
           ))
           result
         }
-      case None => Future.successful(result)
+      case _ => Future.successful(result)
     }
   }
 

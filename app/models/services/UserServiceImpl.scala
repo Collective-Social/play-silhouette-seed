@@ -3,8 +3,8 @@ package models.services
 import java.util.UUID
 import javax.inject.Inject
 
-import com.mohiva.play.silhouette.api.LoginInfo
-import com.mohiva.play.silhouette.impl.providers.CommonSocialProfile
+import io.github.honeycombcheesecake.play.silhouette.api.LoginInfo
+import io.github.honeycombcheesecake.play.silhouette.impl.providers.CommonSocialProfile
 import models.User
 import models.daos.UserDAO
 

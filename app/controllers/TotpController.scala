@@ -1,9 +1,9 @@
 package controllers
 
-import com.mohiva.play.silhouette.api._
-import com.mohiva.play.silhouette.api.exceptions.ProviderException
-import com.mohiva.play.silhouette.impl.exceptions.IdentityNotFoundException
-import com.mohiva.play.silhouette.impl.providers._
+import io.github.honeycombcheesecake.play.silhouette.api._
+import io.github.honeycombcheesecake.play.silhouette.api.exceptions.ProviderException
+import io.github.honeycombcheesecake.play.silhouette.impl.exceptions.IdentityNotFoundException
+import io.github.honeycombcheesecake.play.silhouette.impl.providers._
 import forms.{ TotpForm, TotpSetupForm }
 import javax.inject.Inject
 import play.api.i18n.Messages
@@ -58,7 +58,7 @@ class TotpController @Inject() (
    */
   def enableTotpSubmit = SecuredAction.async { implicit request =>
     val user = request.identity
-    TotpSetupForm.form.bindFromRequest.fold(
+    TotpSetupForm.form.bindFromRequest().fold(
       form => authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
         BadRequest(home(user, totpInfoOpt))
       },
@@ -82,7 +82,7 @@ class TotpController @Inject() (
    * @return The result to display.
    */
   def submit = UnsecuredAction.async { implicit request =>
-    TotpForm.form.bindFromRequest.fold(
+    TotpForm.form.bindFromRequest().fold(
       form => Future.successful(BadRequest(totp(form))),
       data => {
         val totpControllerRoute = routes.TotpController.view(data.userID, data.sharedKey, data.rememberMe)
